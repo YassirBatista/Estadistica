@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Estadístico</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <nav class="animate-in">
+        <a href="#inicio">Dashboard</a>
+        <a href="#gallery-section">Repositorio</a>
+        <a href="#upload-section">Nuevo Ingreso</a>
+    </nav>
+
+    <div id="modalOverlay" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button id="closeModal" class="close-btn"><i class="ri-close-line"></i></button>
+            <div id="modalBody">
+                </div>
+        </div>
+    </div>
+
+    <div class="container">
+        
+        <header id="inicio" class="hero animate-in">
+            <div class="terminal-badge">v.3.5 STABLE-CORE</div>
+            <h1 class="logo-text">Análisis Estadístico &<br>Probabilidad</h1>
+            <p class="hero-desc">
+                Plataforma de gestión documental y análisis de datos. 
+                Soporte para persistencia de datos local y visualización multimedia.
+            </p>
+        </header>
+
+        <section id="gallery-section" class="gallery-container animate-in">
+            <div class="section-header">
+                <h2><i class="ri-database-2-line"></i> Repositorio de Datos</h2>
+            </div>
+            <div id="gallery" class="files-grid"></div>
+        </section>
+
+        <section id="upload-section" class="upload-section animate-in">
+            <div class="section-header">
+                <h2><i class="ri-upload-cloud-2-line"></i> Ingesta de Datos</h2>
+            </div>
+            
+            <form id="uploadForm">
+                <div class="type-selector">
+                    <label class="radio-label">
+                        <input type="radio" name="fileType" value="file" checked onchange="toggleInputType()">
+                        <span><i class="ri-file-upload-line"></i> Archivo</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="fileType" value="link" onchange="toggleInputType()">
+                        <span><i class="ri-link"></i> Enlace</span>
+                    </label>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Título</label>
+                        <input type="text" id="title" required placeholder="Ej. Gráfico de dispersión">
+                    </div>
+                    
+                    <div class="form-group" id="inputContainer">
+                        <label>Archivo (PDF, IMG, DOC)</label>
+                        <input type="file" id="fileInput">
+                    </div>
+                    
+                    <div class="form-group hidden" id="urlContainer">
+                        <label>URL / Enlace</label>
+                        <input type="url" id="urlInput" placeholder="https://...">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Descripción</label>
+                    <textarea id="description" required placeholder="Detalles técnicos..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Guardar en Base de Datos</button>
+            </form>
+        </section>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    </script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>
