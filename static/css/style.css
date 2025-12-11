@@ -252,3 +252,14 @@ input:focus, textarea:focus { border-color: var(--accent-green); }
 }
 
 .hidden { display: none !important; }
+
+/* CURSOR PERSONALIZADO */
+/* Cursor normal (flecha) */
+body {
+    cursor: url('cursor.png'), auto;
+}
+
+/* Cursor de "mano" (botones y links) */
+a, button, .file-card, .close-btn, label, input[type="file"]::-webkit-file-upload-button {
+    cursor: url('pointer.png'), pointer;
+}
