@@ -261,5 +261,5 @@ body {
 
 /* Cursor de "mano" (botones y links) */
 a, button, .file-card, .close-btn, label, input[type="file"]::-webkit-file-upload-button {
-    cursor: url('cursor.png') 0 0, pointer;
+    cursor: url('pointer.png') 0 0, pointer;
 }
