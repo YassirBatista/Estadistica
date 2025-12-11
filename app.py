@@ -102,27 +102,40 @@ def upload_file():
 
     return jsonify({'success': True})
 
-# API: Eliminar archivo (DELETE)
+# API: Eliminar archivo (DELETE) - VERSIÓN ROBUSTA
 @app.route('/delete/<int:file_id>', methods=['DELETE'])
 def delete_file(file_id):
-    conn = get_db_connection()
-    # Primero buscamos el archivo para saber su ruta y borrarlo del disco
-    file = conn.execute('SELECT content, type FROM files WHERE id = ?', (file_id,)).fetchone()
-    
-    if file and file['type'] != 'link':
-        try:
-            # Construir la ruta completa del archivo
-            # lstrip('/') quita la barra inicial de la ruta guardada en DB
-            file_path = os.path.join(BASE_DIR, file['content'].lstrip('/'))
-            if os.path.exists(file_path):
-                os.remove(file_path) # Borra el archivo físico
-        except Exception as e:
-            print(f"Error borrando archivo físico: {e}")
+    try:
+        conn = get_db_connection()
+        # 1. Obtener datos del archivo antes de borrarlo
+        file = conn.execute('SELECT content, type FROM files WHERE id = ?', (file_id,)).fetchone()
+        
+        if file:
+            # 2. Intentar borrar el archivo físico (si existe y no es un link)
+            if file['type'] != 'link':
+                try:
+                    # Quitamos el primer '/' para que os.path construya bien la ruta
+                    # Ejemplo: "/static/uploads/foto.jpg" -> "static/uploads/foto.jpg"
+                    relative_path = file['content'].lstrip('/')
+                    file_path = os.path.join(BASE_DIR, relative_path)
+                    
+                    if os.path.exists(file_path):
+                        os.remove(file_path) # Borra el archivo físico
+                except Exception as e:
+                    print(f"Advertencia: No se pudo borrar archivo físico: {e}")
 
-    # Borrar registro de la DB
-    conn.execute('DELETE FROM files WHERE id = ?', (file_id,)).commit()
-    conn.close()
-    return jsonify({'success': True})
+            # 3. Borrar de la base de datos (Esto es lo más importante para que desaparezca el cuadro)
+            conn.execute('DELETE FROM files WHERE id = ?', (file_id,))
+            conn.commit()
+            conn.close()
+            
+            return jsonify({'success': True})
+        else:
+            conn.close()
+            return jsonify({'error': 'Archivo no encontrado'}), 404
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)

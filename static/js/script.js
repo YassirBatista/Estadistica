@@ -62,7 +62,7 @@ uploadForm.addEventListener('submit', async (e) => {
         if (res.ok) {
             uploadForm.reset();
             toggleInputType();
-            loadFiles(); // Recargar la lista
+            loadFiles(); // Recargar la lista para ver el nuevo
         } else {
             alert("Error al subir el archivo");
         }
@@ -103,15 +103,35 @@ function createCard(file) {
     const card = document.createElement('div');
     card.className = 'file-card';
     
-    // Botón de eliminar
+    // Botón de eliminar (LÓGICA MEJORADA)
     const delBtn = document.createElement('button');
     delBtn.innerHTML = '<i class="ri-delete-bin-line"></i>';
     delBtn.className = 'delete-btn-card';
+    
     delBtn.onclick = async (e) => {
-        e.stopPropagation(); // Evitar que se abra el modal al borrar
-        if(confirm("¿Estás seguro de eliminar este recurso?")) {
-            await fetch(`/delete/${file.id}`, { method: 'DELETE' });
-            loadFiles();
+        e.stopPropagation(); // Evitar abrir el modal
+        
+        if(confirm("¿Estás seguro de eliminar este recurso permanentemente?")) {
+            try {
+                const res = await fetch(`/delete/${file.id}`, { method: 'DELETE' });
+                const data = await res.json();
+
+                if (data.success) {
+                    // EFECTO VISUAL: Desvanecer y eliminar el cuadro
+                    card.style.transition = "all 0.5s ease";
+                    card.style.opacity = "0";
+                    card.style.transform = "scale(0.8)";
+                    
+                    setTimeout(() => {
+                        card.remove(); // Elimina el HTML del recuadro
+                    }, 500);
+                } else {
+                    alert("Error al eliminar: " + (data.error || "Desconocido"));
+                }
+            } catch (error) {
+                console.error(error);
+                alert("Error de conexión con el servidor");
+            }
         }
     };
 
