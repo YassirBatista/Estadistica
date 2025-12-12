@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema Estadístico</title>
+    <title>Sistema Estadístico - EST 226</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     
@@ -12,9 +13,11 @@
 <body>
 
     <nav class="animate-in">
-        <a href="#inicio">Dashboard</a>
+        <a href="#inicio">Inicio</a>
+        <a href="#about">Información</a>
         <a href="#gallery-section">Repositorio</a>
-        <a href="#upload-section">Nuevo Ingreso</a>
+        <a href="#upload-section">Ingesta</a>
+        <a href="#contact">Contacto</a>
     </nav>
 
     <div id="modalOverlay" class="modal-overlay hidden">
@@ -28,13 +31,64 @@
     <div class="container">
         
         <header id="inicio" class="hero animate-in">
-            <div class="terminal-badge">v.3.6 SEARCH-ENABLED</div>
-            <h1 class="logo-text">Análisis Estadístico &<br>Probabilidad</h1>
+            <div class="terminal-badge">v.4.0 FINAL-RELEASE</div>
+            <h1 class="logo-text">Probabilidad y Estadística<br><span style="font-size:1.5rem; color:var(--accent-pink);">EST 226</span></h1>
             <p class="hero-desc">
-                Plataforma integrada para organizar material sobre temas, módulos y gráficos. 
-                Repositorio accesible para visualizar y gestionar información estadística.
+                Este repositorio digital unifica todo nuestro trabajo del semestre. 
+                Aquí podrás visualizar gráficamente nuestros análisis, consultar los talleres realizados 
+                y acceder a los recursos clave de la asignatura de forma organizada e interactiva.
             </p>
         </header>
+
+        <section id="about" class="animate-in">
+            <div class="info-grid">
+                
+                <div class="info-card">
+                    <h3 class="info-title"><i class="ri-team-line"></i> Equipo de Desarrollo</h3>
+                    <ul class="member-list">
+                        <li><i class="ri-user-3-line"></i> Yassir Batista <small>(8-1027-1753)</small></li>
+                        <li><i class="ri-user-3-line"></i> Ariel Leones <small>(8-1029-2166)</small></li>
+                        <li><i class="ri-user-3-line"></i> Juan Campos <small>(8-951-217)</small></li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3 class="info-title"><i class="ri-book-open-line"></i> Ficha Académica</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 10px;">
+                        <strong>Asignatura:</strong> Probabilidad y Estadística (EST 226)<br>
+                        <strong>Docente:</strong> Profa. Milagros García
+                    </p>
+                    <p style="font-size: 0.95rem;">
+                        Este curso nos ha sumergido en el análisis de datos, desde la estadística descriptiva hasta la inferencial, 
+                        proporcionándonos las herramientas matemáticas necesarias para interpretar fenómenos aleatorios.
+                    </p>
+                </div>
+
+                <div class="info-card" style="grid-column: 1 / -1;">
+                    <h3 class="info-title"><i class="ri-node-tree"></i> Estructura del Sistema</h3>
+                    <p style="margin-bottom: 15px;">
+                        Esta es la arquitectura real de archivos que hace funcionar la plataforma, integrando Flask, SQLite y JS:
+                    </p>
+                    <div class="tree-container">
+                        <pre class="tree-code">
+ESTADISTICA_FINAL/
+├── <span class="tree-file">app.py</span>              <span class="comment"># Servidor Backend (Flask + Python)</span>
+├── <span class="tree-file">database.db</span>         <span class="comment"># Base de Datos (SQLite)</span>
+├── <span class="tree-folder">templates/</span>
+│   └── <span class="tree-file">index.html</span>      <span class="comment"># Interfaz de Usuario </span>
+└── <span class="tree-folder">static/</span>
+    ├── <span class="tree-folder">css/</span>
+    │   ├── <span class="tree-file">style.css</span>   <span class="comment"># Diseño Visual </span>
+    │   ├── <span class="tree-file">cursor.png</span>  <span class="comment"># Assets Gráficos</span>
+    │   └── <span class="tree-file">pointer.png</span>
+    ├── <span class="tree-folder">js/</span>
+    │   └── <span class="tree-file">script.js</span>   <span class="comment"># Lógica de la página</span>
+    └── <span class="tree-folder">uploads/</span>        <span class="comment"># Almacenamiento de Archivos</span></pre>
+                    </div>
+                </div>
+
+            </div>
+        </section>
 
         <section id="gallery-section" class="gallery-container animate-in">
             <div class="section-header">
@@ -54,6 +108,7 @@
                     <option value="doc">Docs</option>
                 </select>
             </div>
+
             <div id="gallery" class="files-grid"></div>
         </section>
 
@@ -77,7 +132,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>Título</label>
-                        <input type="text" id="title" required placeholder="Ej. Gráfico de dispersión">
+                        <input type="text" id="title" required placeholder="Ej. Taller de Regresión Lineal">
                     </div>
                     
                     <div class="form-group" id="inputContainer">
@@ -93,19 +148,51 @@
 
                 <div class="form-group">
                     <label>Descripción</label>
-                    <textarea id="description" required placeholder="Detalles técnicos..."></textarea>
+                    <textarea id="description" required placeholder="Describe el contenido del archivo..."></textarea>
                 </div>
 
                 <button type="submit" class="btn-submit">Guardar en Base de Datos</button>
             </form>
         </section>
 
+        <section id="contact" class="animate-in" style="margin-bottom: 50px; margin-top: 50px;">
+            <div class="section-header">
+                <h2><i class="ri-mail-send-line"></i> Contacto Académico</h2>
+            </div>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3 class="info-title" style="font-size: 1rem;"><i class="ri-user-line"></i> Yassir Batista</h3>
+                    <a href="mailto:yassir-n.batista-p@up.ac.pa" style="color: var(--accent-cyan); text-decoration: none; word-break: break-all;">
+                        <i class="ri-mail-line"></i> yassir-n.batista-p@up.ac.pa
+                    </a>
+                </div>
+
+                <div class="info-card">
+                    <h3 class="info-title" style="font-size: 1rem;"><i class="ri-user-line"></i> Ariel Leones</h3>
+                    <a href="mailto:ariel.leones@up.ac.pa" style="color: var(--accent-cyan); text-decoration: none; word-break: break-all;">
+                        <i class="ri-mail-line"></i> ariel.leones@up.ac.pa
+                    </a>
+                </div>
+
+                <div class="info-card">
+                    <h3 class="info-title" style="font-size: 1rem;"><i class="ri-user-line"></i> Juan Campos</h3>
+                    <a href="mailto:juan-r.campos-g@up.ac.pa" style="color: var(--accent-cyan); text-decoration: none; word-break: break-all;">
+                        <i class="ri-mail-line"></i> juan-r.campos-g@up.ac.pa
+                    </a>
+                </div>
+            </div>
+        </section>
+
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
     </script>
+    
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>

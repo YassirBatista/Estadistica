@@ -263,3 +263,42 @@ body {
 a, button, .file-card, .close-btn, label, input[type="file"]::-webkit-file-upload-button {
     cursor: url('pointer.png') 0 0, pointer;
 }
+
+/* --- ESTILOS DEL ÁRBOL DE ARCHIVOS --- */
+.tree-container {
+    background: rgba(0, 0, 0, 0.3); /* Fondo más oscuro */
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    overflow-x: auto; /* Scroll horizontal si es muy ancho en móvil */
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.tree-code {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-secondary); /* Color de las ramas */
+}
+
+.tree-folder {
+    color: var(--accent-cyan); /* Color para carpetas */
+    font-weight: bold;
+}
+
+.tree-file {
+    color: var(--text-primary); /* Color para archivos */
+}
+
+.comment {
+    color: #565f89; /* Color grisáceo para comentarios */
+    font-style: italic;
+    margin-left: 15px;
+    display: inline-block;
+}
+
+/* Efecto hover suave */
+.tree-container:hover {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 15px rgba(125, 207, 255, 0.05);
+}
